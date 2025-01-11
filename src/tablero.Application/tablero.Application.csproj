@@ -7,12 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\tablero.Domain\tablero.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataBase\Estado\Queries\" />
+    <Folder Include="DataBase\Tablero\Queries\" />
+    <Folder Include="DataBase\Tarea\Queries\" />
+    <Folder Include="DataBase\Usuario\Queries\" />
   </ItemGroup>
 
 </Project>

@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\tablero.Application\tablero.Application.csproj" />
+    <ProjectReference Include="..\tablero.Common\tablero.Common.csproj" />
+    <ProjectReference Include="..\tablero.External\tablero.External.csproj" />
     <ProjectReference Include="..\tablero.Persistence\tablero.Persistence.csproj" />
   </ItemGroup>
 
