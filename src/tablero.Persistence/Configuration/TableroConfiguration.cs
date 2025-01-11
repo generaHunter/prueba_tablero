@@ -18,6 +18,7 @@ namespace tablero.Persistence.Configuration
             entityBuilder.Property(x => x.FechaCreacion).IsRequired();
 
             entityBuilder.HasMany(x => x.Tareas).WithOne(x => x.Tablero).HasForeignKey(x => x.IdTablero);
+            entityBuilder.HasOne(b => b.Usuario).WithMany(b => b.Tableros).HasForeignKey(b => b.UserId);
         }
     }
 }

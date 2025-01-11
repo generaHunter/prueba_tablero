@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +9,13 @@ using tablero.Domain.Entities.Tablero;
 using tablero.Domain.Entities.Tarea;
 using tablero.Domain.Entities.Usuario;
 
-
 namespace tablero.Application.DataBase
 {
-    public interface IDataBaseService
+    public interface IMongoDataBaseService
     {
-        DbSet<EstadoEntity> Estado { get; set; }
-        DbSet<TableroEntity> Tablero { get; set; }
-        DbSet<TareaEntity> Tarea { get; set; }
-        DbSet<UsuarioEntity> Usuario { get; set; }
-
-        Task<bool> SaveAsync();
+        IMongoCollection<EstadoEntity> Estado { get; }
+        IMongoCollection<TableroEntity> Tablero { get; }
+        IMongoCollection<TareaEntity> Tarea { get; }
+        IMongoCollection<UsuarioEntity> Usuario { get; }
     }
 }

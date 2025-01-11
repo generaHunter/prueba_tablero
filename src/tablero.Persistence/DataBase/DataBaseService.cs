@@ -8,6 +8,7 @@ using tablero.Application.DataBase;
 using tablero.Domain.Entities.Estado;
 using tablero.Domain.Entities.Tablero;
 using tablero.Domain.Entities.Tarea;
+using tablero.Domain.Entities.Usuario;
 using tablero.Persistence.Configuration;
 
 namespace tablero.Persistence.DataBase
@@ -22,6 +23,7 @@ namespace tablero.Persistence.DataBase
         public DbSet<EstadoEntity> Estado { get; set; }
         public DbSet<TableroEntity> Tablero { get; set; }
         public DbSet<TareaEntity> Tarea { get; set; }
+        public DbSet<UsuarioEntity> Usuario { get; set; }
 
         public async Task<bool> SaveAsync()
         {
@@ -36,6 +38,7 @@ namespace tablero.Persistence.DataBase
 
         private void EntitiesConfiguration(ModelBuilder modelBuilder)
         {
+            new UsuarioConfiguration(modelBuilder.Entity<UsuarioEntity>());
             new EstadoConfiguration(modelBuilder.Entity<EstadoEntity>());
             new TableroConfiguration(modelBuilder.Entity<TableroEntity>());
             new TareaConfiguration(modelBuilder.Entity<TareaEntity>());

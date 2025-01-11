@@ -25,6 +25,8 @@ namespace tablero.Persistence.Configuration
             entityBuilder.HasOne(b => b.Tablero)
                 .WithMany(b => b.Tareas)
                 .HasForeignKey(b => b.IdTablero);
+
+            entityBuilder.HasOne(b => b.Usuario).WithMany(b => b.Tareas).HasForeignKey(b => b.UserId);
         }
     }
 }
