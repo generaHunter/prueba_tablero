@@ -11,6 +11,7 @@ using tablero.Application.DataBase.Tarea.Commands.DefultModel;
 using tablero.Application.DataBase.Tarea.Commands.UpdateTarea;
 using tablero.Application.DataBase.Usuario.Commands.UpdateUsuario;
 using tablero.Application.DataBase.Usuario.DefaultModel;
+using tablero.Application.DataBase.Usuario.Queries.GetUserByCredentials;
 using tablero.Domain.Entities.Estado;
 using tablero.Domain.Entities.Tablero;
 using tablero.Domain.Entities.Tarea;
@@ -42,6 +43,7 @@ namespace tablero.Application.Configuration
             #region Usuario
             CreateMap<UsuarioEntity, DefaultUsuarioModel>().ReverseMap();
             CreateMap<UsuarioEntity, UpdateUsuarioModel>().ReverseMap();
+            CreateMap<UsuarioEntity, GetUserByCredentialsModel>().ReverseMap();
             #endregion
         }
     }

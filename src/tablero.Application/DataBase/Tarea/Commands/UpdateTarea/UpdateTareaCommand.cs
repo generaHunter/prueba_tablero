@@ -1,32 +1,35 @@
-﻿using AutoMapper;
+﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using tablero.Application.DataBase.Tablero.Commands.UpdateTablero;
-using tablero.Domain.Entities.Tablero;
 using tablero.Domain.Entities.Tarea;
 
 namespace tablero.Application.DataBase.Tarea.Commands.UpdateTarea
 {
-    public class UpdateTareaCommand: IUpdateTareaCommand
+    public class UpdateTareaCommand : IUpdateTareaCommand
     {
         private readonly IDataBaseService _dataBaseService;
         private readonly IMongoDataBaseService _mongoDataBaseService;
-        private readonly IMapper _mapper;
 
-        public UpdateTareaCommand(IDataBaseService dataBaseService, IMongoDataBaseService mongoDataBaseService, IMapper mapper)
+        public UpdateTareaCommand(IDataBaseService dataBaseService, IMongoDataBaseService mongoDataBaseService)
         {
             _dataBaseService = dataBaseService;
             _mongoDataBaseService = mongoDataBaseService;
-            _mapper = mapper;
+
         }
 
-        public async Task<UpdateTareaModel> Execute(UpdateTareaModel model)
+        public async Task<bool> Execute(UpdateTareaModel model)
         {
-            var entity = _mapper.Map<TareaEntity>(model);
+            var entity = await _dataBaseService.Tarea.FirstOrDefaultAsync(x => x.IdTarea == model.IdTarea);
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            entity.Titulo = model.Titulo;
+            entity.Descripcion = model.Descripcion;
+            entity.FechaCreacion = entity.FechaCreacion.ToUniversalTime();
+            entity.IdEstado = model.IdEstado;
+
             _dataBaseService.Tarea.Update(entity);
             var result = await _dataBaseService.SaveAsync();
 
@@ -41,8 +44,7 @@ namespace tablero.Application.DataBase.Tarea.Commands.UpdateTarea
                 await _mongoDataBaseService.Tarea.UpdateOneAsync(filter, update);
             }
 
-            return model;
-
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -23,23 +24,33 @@ namespace tablero.Application.DataBase.Tablero.Commands.UpdateTablero
             _mapper = mapper;
         }
 
-        public async Task<UpdateTableroModel> Execute(UpdateTableroModel model)
+        public async Task<bool> Execute(UpdateTableroModel model)
         {
-            var entity = _mapper.Map<TableroEntity>(model);
-            _dataBaseService.Tablero.Update(entity);
-            var result = await _dataBaseService.SaveAsync();
+                var entity = await _dataBaseService.Tablero.FirstOrDefaultAsync(x => x.IdTablero == model.IdTablero);
 
-            //Replicamos datos en mongo
-            if (result)
-            {
-                var filter = Builders<TableroEntity>.Filter.Eq(e => e.IdTablero, model.IdTablero);
-                var update = Builders<TableroEntity>.Update
-                    .Set(e => e.Nombre, model.Nombre)
-                    .Set(e => e.Descripcion, model.Descripcion);
-                await _mongoDataBaseService.Tablero.UpdateOneAsync(filter, update);
-            }
+                if (entity == null)
+                {
+                    return false;
+                }
 
-            return model;
+                entity.Nombre = model.Nombre;
+                entity.Descripcion = model.Descripcion;
+                entity.FechaCreacion = entity.FechaCreacion.ToUniversalTime();
+
+                _dataBaseService.Tablero.Update(entity);
+                var result = await _dataBaseService.SaveAsync();
+
+                //Replicamos datos en mongo
+                if (result)
+                {
+                    var filter = Builders<TableroEntity>.Filter.Eq(e => e.IdTablero, model.IdTablero);
+                    var update = Builders<TableroEntity>.Update
+                        .Set(e => e.Nombre, entity.Nombre)
+                        .Set(e => e.Descripcion, entity.Descripcion);
+                    await _mongoDataBaseService.Tablero.UpdateOneAsync(filter, update);
+                }
+
+            return true;
 
         }
     }

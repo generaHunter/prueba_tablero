@@ -11,7 +11,7 @@ namespace tablero.Application.DataBase.Tarea.Commands.DefultModel
         public int IdTarea { get; set; }
         public string Titulo { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
-        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
         public int IdEstado { get; set; }
         public int IdTablero { get; set; }
         public int UserId { get; set; }

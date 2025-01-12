@@ -8,6 +8,6 @@ namespace tablero.Application.DataBase.Tarea.Commands.UpdateTarea
 {
     public interface IUpdateTareaCommand
     {
-        Task<UpdateTareaModel> Execute(UpdateTareaModel model);
+        Task<bool> Execute(UpdateTareaModel model);
     }
 }

@@ -33,6 +33,7 @@ namespace tablero.Application.DataBase.Tarea.Commands.CreateTarea
             //Replicamos datos en mongo
             if (result)
             {
+                model.IdTarea = entity.IdTarea;
                 await _mongoDataBaseService.Tarea.InsertOneAsync(entity);
             }
 

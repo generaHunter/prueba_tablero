@@ -1,17 +1,16 @@
 
 
 using tablero.Api;
-using tablero.Application.DataBase;
-using tablero.Persistence;
-using tablero.Common;
 using tablero.Application;
+using tablero.Application.DataBase;
+using tablero.Application.DataBase.Reportes.ReporteTareas;
+using tablero.Application.DataBase.Tablero.Commands.CreateTablero;
+using tablero.Application.DataBase.Tablero.DefaultModel;
+using tablero.Application.DataBase.Tarea.Commands.CreateTarea;
+using tablero.Application.DataBase.Tarea.Commands.DefultModel;
+using tablero.Common;
 using tablero.External;
-using tablero.Persistence.DataBase;
-using tablero.Application.DataBase.Estado.Commands.CreateEstado;
-using tablero.Application.DataBase.Usuario.Commands.CreateUsuario;
-using tablero.Application.DataBase.Usuario.DefaultModel;
-using tablero.Application.DataBase.Usuario.Commands.UpdateUsuario;
-using tablero.Application.DataBase.Usuario.Commands.DeleteUsuario;
+using tablero.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +21,8 @@ builder.Services
     .AddApplication()
     .AddExternal(builder.Configuration)
     .AddPersitence(builder.Configuration);
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -41,7 +42,7 @@ app.MapPost("/createEstado", async (IDataBaseService _dataBaseService, IMongoDat
     return "Create Ok";
 });
 
-app.MapPost("/createUsuario", async (IDeleteUsuarioCommand service) =>
+app.MapPost("/createUsuario", async (IReporteTareasQuery service, ICreateTableroCommand serviceTablero, ICreateTareaCommand serviceTarea) =>
 {
     //var model = new UpdateUsuarioModel { 
     //UserId = 2,
@@ -51,8 +52,38 @@ app.MapPost("/createUsuario", async (IDeleteUsuarioCommand service) =>
     //UserName = "dd"
     //};
 
-   return await service.Execute(2);
+    var modelTablero = new DefaultTableroModel()
+    {
+        Descripcion = "Tablero prueba",
+        FechaCreacion = DateTime.UtcNow,
+        Nombre = "Tablero 1",
+        UserId = 1
+    };
+
+    var modelTarea = new DefaultTareaModel()
+    {
+        UserId = 1,
+        Descripcion = "Tarea de prueba",
+        Titulo = "Tarea 1",
+        IdTablero = 2
+    };
+
+
+
+    //return await serviceTablero.Execute(modelTablero);
+    //return await serviceTarea.Execute(modelTarea);
+    return await service.Execute();
 });
 
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 app.Run();
 
