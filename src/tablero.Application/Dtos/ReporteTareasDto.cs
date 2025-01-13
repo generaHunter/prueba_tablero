@@ -8,10 +8,12 @@ namespace tablero.Application.Dtos
 {
     public class ReporteTareasDto
     {
-        public string Estado { get; set; }
+        public int IdTablero { get; set; }
         public string Tablero { get; set; }
         public int TotalTareas { get; set; }
-        public int TareasCompletadas { get; set; }
-        public double ProporcionCompletadas { get; set; }
+        public int Pendiente { get; set; }
+        public int EnProgreso { get; set; }
+        public int Completada { get; set; }
+        public double PorcentajeCompletadas { get; set; }
     }
 }

@@ -26,15 +26,24 @@ namespace tablero.Application.DataBase.Tablero.Commands.CreateTablero
 
         public async Task<DefaultTableroModel> Execute(DefaultTableroModel model)
         {
-            var entity = _mapper.Map<TableroEntity>(model);
-            await _dataBaseService.Tablero.AddAsync(entity);
-            var result = await _dataBaseService.SaveAsync();
-
-            //Replicamos datos en mongo
-            if (result)
+            try
             {
-                await _mongoDataBaseService.Tablero.InsertOneAsync(entity);
+                var entity = _mapper.Map<TableroEntity>(model);
+                await _dataBaseService.Tablero.AddAsync(entity);
+                var result = await _dataBaseService.SaveAsync();
+
+                //Replicamos datos en mongo
+                if (result)
+                {
+                    await _mongoDataBaseService.Tablero.InsertOneAsync(entity);
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
 
             return model;
 

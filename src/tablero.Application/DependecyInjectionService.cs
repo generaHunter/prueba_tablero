@@ -10,6 +10,7 @@ using tablero.Application.Configuration;
 using tablero.Application.DataBase.Estado.Commands.CreateEstado;
 using tablero.Application.DataBase.Estado.Queries.GetAllEstadosQuery;
 using tablero.Application.DataBase.Reportes.ReporteTareas;
+using tablero.Application.DataBase.SeedData.Commands.GenerateSeedData;
 using tablero.Application.DataBase.Tablero.Commands.CreateTablero;
 using tablero.Application.DataBase.Tablero.Commands.DeleteTablero;
 using tablero.Application.DataBase.Tablero.Commands.UpdateTablero;
@@ -77,6 +78,10 @@ namespace tablero.Application
 
             #region Reportes
             services.AddTransient<IReporteTareasQuery, ReporteTareasQuery>();
+            #endregion
+
+            #region SeedData
+            services.AddTransient<IGenerateSeedDataCommand, GenerateSeedDataCommand>();
             #endregion
 
             return services;
