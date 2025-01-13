@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace tablero.Domain.Entities.Tablero
         public int UserId { get; set; }
 
         public UsuarioEntity? Usuario { get; set; }
+
+        [BsonIgnore]
         public ICollection<TareaEntity>? Tareas{ get; set; }
     }
 }

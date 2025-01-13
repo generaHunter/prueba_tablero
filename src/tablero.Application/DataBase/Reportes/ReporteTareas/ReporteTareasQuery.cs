@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,20 +23,15 @@ namespace tablero.Application.DataBase.Reportes.ReporteTareas
 
         public async Task<List<ReporteTareasDto>> Execute()
         {
-            List<ReporteTareasDto> list = new();
-
-            // Obtener todos los datos de las colecciones necesarias
+            // Obtener los datos necesarios de las colecciones
             var tareas = await _dataBaseService.Tarea.Find(_ => true)
                 .Project(e => new TareaEntity
                 {
-                    Descripcion = e.Descripcion,
-                    FechaCreacion = e.FechaCreacion,
                     IdEstado = e.IdEstado,
-                    IdTablero = e.IdTablero,
-                    IdTarea = e.IdTarea,
-                    UserId = e.UserId
+                    IdTablero = e.IdTablero
                 })
                 .ToListAsync();
+
             var estados = await _dataBaseService.Estado.Find(_ => true)
                 .Project(e => new EstadoEntity
                 {
@@ -43,42 +39,43 @@ namespace tablero.Application.DataBase.Reportes.ReporteTareas
                     NombreEstado = e.NombreEstado
                 })
                 .ToListAsync();
+
             var tableros = await _dataBaseService.Tablero.Find(_ => true)
                 .Project(e => new TableroEntity
                 {
-                    Descripcion = e.Descripcion,
-                    FechaCreacion = e.FechaCreacion,
-                    IdTablero= e.IdTablero,
-                    UserId= e.UserId,
+                    IdTablero = e.IdTablero,
                     Nombre = e.Nombre
                 })
                 .ToListAsync();
 
-            // Generar el reporte agrupando las tareas por estado y tablero
-            list = tareas
-                .GroupBy(t => new { t.IdEstado, t.IdTablero })
+            // Generar el reporte agrupando por tablero
+            var reporte = tareas
+                .GroupBy(t => t.IdTablero)
                 .Select(grupo =>
                 {
-                    var estado = estados.FirstOrDefault(e => e.IdEstado == grupo.Key.IdEstado)?.NombreEstado ?? "Desconocido";
-                    var tablero = tableros.FirstOrDefault(t => t.IdTablero == grupo.Key.IdTablero)?.Nombre ?? "Desconocido";
+                    var tableroId = grupo.Key;
+                    var tableroNombre = tableros.FirstOrDefault(t => t.IdTablero == tableroId)?.Nombre ?? "Desconocido";
 
                     var totalTareas = grupo.Count();
-                    var completadas = grupo.Count(t => estados.FirstOrDefault(e => e.IdEstado == t.IdEstado)?.NombreEstado == "Completada");
-                    var proporcionCompletadas = totalTareas > 0 ? (double)completadas / totalTareas : 0;
+                    var pendiente = grupo.Count(t => estados.FirstOrDefault(e => e.IdEstado == t.IdEstado)?.NombreEstado == "Pendiente");
+                    var enProgreso = grupo.Count(t => estados.FirstOrDefault(e => e.IdEstado == t.IdEstado)?.NombreEstado == "En progreso");
+                    var completada = grupo.Count(t => estados.FirstOrDefault(e => e.IdEstado == t.IdEstado)?.NombreEstado == "Completada");
+                    var porcentajeCompletadas = totalTareas > 0 ? (double)completada / totalTareas * 100 : 0;
 
                     return new ReporteTareasDto
                     {
-                        Estado = estado,
-                        Tablero = tablero,
+                        IdTablero = tableroId,
+                        Tablero = tableroNombre,
                         TotalTareas = totalTareas,
-                        TareasCompletadas = completadas,
-                        ProporcionCompletadas = proporcionCompletadas
+                        Pendiente = pendiente,
+                        EnProgreso = enProgreso,
+                        Completada = completada,
+                        PorcentajeCompletadas = Math.Round(porcentajeCompletadas, 2)
                     };
                 })
                 .ToList();
 
-
-            return list;
+            return reporte;
         }
     }
 }
