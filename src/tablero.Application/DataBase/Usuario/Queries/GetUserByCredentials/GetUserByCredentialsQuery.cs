@@ -21,7 +21,7 @@ namespace tablero.Application.DataBase.Usuario.Queries.GetUserByCredentials
         public async Task<GetUserByCredentialsModel> Execute(string userName, string password)
         {
             var user = await _dataBaseService.Usuario.FirstOrDefaultAsync(x => x.UserName == userName && x.Password == password);
-            user.Password = string.Empty;
+            if (user != null) user.Password = string.Empty;
             return _mapper.Map<GetUserByCredentialsModel>(user);
         }
     }

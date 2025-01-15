@@ -1,0 +1,512 @@
+{
+	"info": {
+		"_postman_id": "8b6dfd29-2218-48a8-9501-1614d05f162a",
+		"name": "Prueba_Tablero Api Endpoint",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18943300"
+	},
+	"item": [
+		{
+			"name": "Tablero",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Tablero 2\",\r\n    \"descripcion\": \"Tablero inicial\",\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tablero/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tablero",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTablero\": 2,\r\n    \"nombre\": \"Tablero 2\",\r\n    \"descripcion\": \"Tablero Inicial\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tablero/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tablero",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzM2NjU5ODEzLCJleHAiOjE3MzY2NTk4NzMsImlhdCI6MTczNjY1OTgxM30.4FXSLtTAledCzv3Gkqvml3i-pPtRI_8OoStrJgYEhSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tablero/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tablero",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tablero/getById?tableroId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tablero",
+								"getById"
+							],
+							"query": [
+								{
+									"key": "tableroId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "getUserByCredential",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/usuario/getUserByCredential/en/En12345678",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								"getUserByCredential",
+								"en",
+								"En12345678"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByCredential Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/usuario/getUserByCredential/en/En12345678",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								"getUserByCredential",
+								"en",
+								"En12345678"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tarea",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Crear Login\",\r\n    \"descripcion\": \"Crear formulario de login\",\r\n    \"idEstado\": 1,\r\n    \"idTablero\": 2,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/getById?tareaId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"getById"
+							],
+							"query": [
+								{
+									"key": "tareaId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByTableroId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/getByTableroId?tableroId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"getByTableroId"
+							],
+							"query": [
+								{
+									"key": "tableroId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/delete?tareaId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "tareaId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTarea\": 1,\r\n    \"titulo\": \"Tarea de analisis\",\r\n    \"descripcion\": \"Analizar implemenacion\",\r\n    \"idEstado\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateEstado",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tarea/updateEstado?tareaId=2&estadoId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tarea",
+								"updateEstado"
+							],
+							"query": [
+								{
+									"key": "tareaId",
+									"value": "2"
+								},
+								{
+									"key": "estadoId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estado",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzM2NzI5MjYwLCJleHAiOjE3MzY3MjkzMjAsImlhdCI6MTczNjcyOTI2MCwiaXNzIjoidGFibGVyby5jb20iLCJhdWQiOiJ0YWJsZXJvLmNvbSJ9.uC21eVxyvz-AqalkDmxYAXaapeSdrH5iq-LGPaPeDY4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzM2NjU5ODEzLCJleHAiOjE3MzY2NTk4NzMsImlhdCI6MTczNjY1OTgxM30.4FXSLtTAledCzv3Gkqvml3i-pPtRI_8OoStrJgYEhSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/estado/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"estado",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generateEstadosSeed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzM2NzI5MjYwLCJleHAiOjE3MzY3MjkzMjAsImlhdCI6MTczNjcyOTI2MCwiaXNzIjoidGFibGVyby5jb20iLCJhdWQiOiJ0YWJsZXJvLmNvbSJ9.uC21eVxyvz-AqalkDmxYAXaapeSdrH5iq-LGPaPeDY4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzM2NjU5ODEzLCJleHAiOjE3MzY2NTk4NzMsImlhdCI6MTczNjY1OTgxM30.4FXSLtTAledCzv3Gkqvml3i-pPtRI_8OoStrJgYEhSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/estado/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"estado",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reporte",
+			"item": [
+				{
+					"name": "getReporteTareas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzM2NzI3MTMwLCJleHAiOjE3MzY3MjcxOTAsImlhdCI6MTczNjcyNzEzMCwiaXNzIjoidGFibGVyby5jb20iLCJhdWQiOiJ0YWJsZXJvLmNvbSJ9.cDmFYRuPbH74Ee9PchQ4o4oxt8mysZalAuHNxJxHZDQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/reporte/getReporteTareas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"reporte",
+								"getReporteTareas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
