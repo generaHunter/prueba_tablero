@@ -35,6 +35,7 @@ namespace tablero.Application.DataBase.Tablero.Commands.CreateTablero
                 //Replicamos datos en mongo
                 if (result)
                 {
+                    model.IdTablero = entity.IdTablero;
                     await _mongoDataBaseService.Tablero.InsertOneAsync(entity);
                 }
             }

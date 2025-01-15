@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tablero.Application.Configuration;
 using tablero.Application.DataBase.Estado.Commands.CreateEstado;
+using tablero.Application.DataBase.Estado.Commands.CreateEstadoSeed;
 using tablero.Application.DataBase.Estado.Queries.GetAllEstadosQuery;
 using tablero.Application.DataBase.Reportes.ReporteTareas;
 using tablero.Application.DataBase.SeedData.Commands.GenerateSeedData;
@@ -24,6 +25,7 @@ using tablero.Application.DataBase.Tarea.Queries.GetAllTareas;
 using tablero.Application.DataBase.Tarea.Queries.GetTareaById;
 using tablero.Application.DataBase.Tarea.Queries.GetTareasByTableroId;
 using tablero.Application.DataBase.Usuario.Commands.CreateUsuario;
+using tablero.Application.DataBase.Usuario.Commands.CreateUsuarioSeed;
 using tablero.Application.DataBase.Usuario.Commands.DeleteUsuario;
 using tablero.Application.DataBase.Usuario.Commands.UpdateUsuario;
 using tablero.Application.DataBase.Usuario.Queries.GetUserByCredentials;
@@ -44,6 +46,7 @@ namespace tablero.Application
 
             #region Servicios Estado
             services.AddTransient<ICreateEstadoCommand, CreateEstadoCommand>();
+            services.AddTransient<ICreateEstadoSeedCommand, CreateEstadoSeedCommand>();
             services.AddTransient<IGetAllEstadosQuery, GetAllEstadosQuery>();
             #endregion
 
@@ -69,6 +72,7 @@ namespace tablero.Application
             services.AddTransient<ICreateUsuarioCommand, CreateUsuarioCommand>();
             services.AddTransient<IDeleteUsuarioCommand, DeleteUsuarioCommand>();
             services.AddTransient<IUpdateUsuarioCommand, UpdateUsuarioCommand>();
+            services.AddTransient<ICreateUsuarioSeedCommand, CreateUsuarioSeedCommand>();
             services.AddTransient<IGetUserByCredentialsQuery, GetUserByCredentialsQuery>();
 
             #region Validator

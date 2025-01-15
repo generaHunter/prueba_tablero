@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tablero.Application.DataBase.Estado.Commands.CreateEstadoSeed;
+using tablero.Application.DataBase.Usuario.Commands.CreateUsuarioSeed;
 using tablero.Application.DataBase.Usuario.Queries.GetUserByCredentials;
 using tablero.Application.Exceptions;
 using tablero.Application.External.JWT;
@@ -47,6 +49,15 @@ namespace tablero.Api.Controllers
             data.Token = _getTokenService.GetAccessToken(data.UserId.ToString());
 
             return StatusCode(StatusCodes.Status200OK, ResponseApiService.Response(StatusCodes.Status200OK, data));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("createUsuarioSeed")]
+        public async Task<IActionResult> CreateUsuarioSeed(
+[FromServices] ICreateUsuarioSeedCommand command)
+        {
+            var data = await command.Execute();
+            return StatusCode(StatusCodes.Status200OK, ResponseApiService.Response(StatusCodes.Status200OK, data ? "Usuario admin Creado" : "Usuario admin ya existen"));
         }
     }
 }

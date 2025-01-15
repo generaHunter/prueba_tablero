@@ -26,7 +26,7 @@ namespace tablero.Application.DataBase.Tarea.Commands.DeleteTarea
         public async Task<bool> Execute(int idTarea)
         {
 
-            var entity = await _dataBaseService.Tarea.FirstOrDefaultAsync(x => x.IdTablero == idTarea);
+            var entity = await _dataBaseService.Tarea.FirstOrDefaultAsync(x => x.IdTarea == idTarea);
             if (entity == null) { return false; }
 
             _dataBaseService.Tarea.Remove(entity);
